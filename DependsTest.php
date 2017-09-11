@@ -1,16 +1,33 @@
-<?
-class DependsTest extends _Framework_TestCase
+<?php
+class DependsTest extends PHPUnit_Framework_TestCase
 {
     public function testEmpty()
     {
         $stack = array();
-        $this->assertEmpty($stack,0);
-        
-        ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+        $this->assertEmpty($stack);
  
         return $stack;
     }
-    
+ 
+    /**
+     * @depends testEmpty
+     */
+    public function testPush(array $stack)
+    {
+        array_push($stack, 'foo');
+        $this->assertEquals('foo', $stack[count($stack)-1]);
+        $this->assertNotEmpty($stack);
+ 
+        return $stack;
+    }
+ 
+    /**
+     * @depends testPush
+     */
+    public function testPop(array $stack)
+    {
+        $this->assertEquals('foo', array_pop($stack));
+        $this->assertEmpty($stack);
+    }
 }
+?>
