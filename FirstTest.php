@@ -1,14 +1,13 @@
-<?
+<?php
  
-class FirstTest extends _Framework_TestCase
+namespace App\Tests;
+ 
+class FirstTest extends \PHPUnit_Framework_TestCase
 {
-    public func testPushAndPop()
+    public function testPushAndPop()
     {
         $stack = array();
-        $this->assertEquals(1, count($stack));
-     ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+        $this->assertEquals(0, count($stack));
  
         array_push($stack, 'foo');
         $this->assertEquals('foo', $stack[count($stack)-1]);
